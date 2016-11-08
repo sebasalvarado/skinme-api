@@ -43,7 +43,9 @@ public class WebConfig {
 		map.put("Title", "Journal");
 		map.put("user", user);
 		// Return the JSON Object
-		return map;
+		// return map;
+		return  "This is a sample request, we return a String result which can be" +
+	    "interpreted as html. Actually, we should return JSON instead of HTML";
     });
 	
 	before("/", (req, res) -> {
@@ -54,6 +56,22 @@ public class WebConfig {
 		}
 	});
 
+	//give me the username and ill get you the journal entries
+	// the return type is a JSON of the relvant things
+
+	get("/journal/:username", (req, res) -> 
+	{
+		String sql = "SELECT  "
+				+ "FROM ENTRY, USER "
+				+ "WHERE ENTRY.userID = User.ID and"
+				+ "User.username = " + req.params(":username")
+				;
+		//the json we get back has key as EntryID and value as the values in the
+		//jsons
+				
+		return null;
+	}
+	);
 	
 	/*
 	 * Displays the products that a given user has
